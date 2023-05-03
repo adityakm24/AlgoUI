@@ -12,8 +12,8 @@ export default function Home() {
           algorithms in the Minix OS. Users can input parameters such as process
           arrival time and burst time, as well as the quantum size, and see how
           each algorithm performs under different conditions.The app is built
-          using Next.js, a popular React-based framework, and is designed to be
-          responsive and easy to use.
+          using <a href="https://nextjs.org/">Next.js</a>, a popular React-based
+          framework, and is designed to be responsive and easy to use.
         </p>
         <h3>contributors:</h3>
         <a href="https://github.com/adityakm24"> Aditya Krishnan M</a> /
