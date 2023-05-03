@@ -16,7 +16,7 @@ export default function Home() {
         <h3>contributors:</h3>
         <a href="https://github.com/adityakm24"> Aditya Krishnan M</a> / 
         <a href="https://github.com/team-member-1"> Hamza Shariff</a> /
-        <a href="https://github.com/team-member-1"> Gokul SanghEEth</a> 
+        <a href="https://github.com/team-member-1"> Gokul Sangheeth</a> 
       </div>
     </div>
   );
