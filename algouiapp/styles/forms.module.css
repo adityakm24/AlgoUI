@@ -69,6 +69,7 @@
   margin-top: 20px;
   cursor: pointer;
   width: 100%;
+  border-style: dashed;
 }
 
 .table-container {
