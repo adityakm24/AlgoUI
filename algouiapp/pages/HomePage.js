@@ -18,11 +18,16 @@ export default function Home() {
           </a>
           , a popular React-based framework, and is designed to be responsive
           and easy to use.
-        </p>
+        </p><br></br><br></br>
         <h3>Contributors:</h3>
-        <a href="https://github.com/adityakm24"> Aditya Krishnan M</a> /
-        <a href="https://github.com/team-member-1"> Hamza Shariff</a> /
-        <a href="https://github.com/team-member-1"> Gokul Sangheeth</a>{" "}
+        <a href="https://github.com/adityakm24" target="_blank">
+          Aditya Krishnan M
+        </a>{" "}
+        /<a href=""> Hamza Shariff</a> /
+        <a href="https://github.com/gk-sgh" target="_blank">
+          {" "}
+          Gokul Sangeeth
+        </a>
         <br></br>
         <br></br>
         <br></br>

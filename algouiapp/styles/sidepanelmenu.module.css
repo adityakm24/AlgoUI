@@ -29,15 +29,15 @@
 }
 
 .menuItem:hover {
-  background-color: #a9a9a9; 
-  color: rgb(53, 53, 53);
+  background-color: #e0e0e0; 
+  color: rgb(33, 33, 33);
   cursor: default;
 }
 
 .menuItem.active {
   font-weight: bolder;
-  background-color: #d5d5d5; 
-  color: rgb(49, 49, 49);
+  background-color: #007aff; 
+  color: rgb(255, 255, 255);
 }
 
 
