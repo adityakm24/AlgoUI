@@ -18,7 +18,9 @@ export default function Home() {
           </a>
           , a popular React-based framework, and is designed to be responsive
           and easy to use.
-        </p><br></br><br></br>
+        </p>
+        <br></br>
+        <br></br>
         <h3>Contributors:</h3>
         <a href="https://github.com/adityakm24" target="_blank">
           Aditya Krishnan M
@@ -31,7 +33,7 @@ export default function Home() {
         <br></br>
         <br></br>
         <br></br>
-        <a href="https://github.com/adityakm24/AlgoUI">
+        <a href="https://github.com/adityakm24/AlgoUI" target="_blank">
           <p>View Code on GitHub</p>
         </a>
       </div>
