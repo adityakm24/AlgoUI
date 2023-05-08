@@ -35,6 +35,7 @@
   text-align: right;
   background-color: #dbdbe4;
   color: rgb(33, 33, 33);
+  text-align: left;
 }
 
 .input::-webkit-outer-spin-button,
