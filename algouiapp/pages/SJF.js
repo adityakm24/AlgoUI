@@ -29,6 +29,7 @@ export default function SJF() {
 
   return (
     <div>
+      <h1 className={styles.heading}>Shortest Job First (SJF) Scheduling</h1>
       <div className={styles.box}>
         <div className={styles.container}>
           <form onSubmit={handleSubmit}>

@@ -31,6 +31,7 @@ export default function PriorityScheduling() {
 
   return (
     <div>
+      <h1 className={styles.heading}>Priority Scheduling</h1>
       <div className={styles.box}>
         <div className={styles.container}>
           <form onSubmit={handleSubmit}>

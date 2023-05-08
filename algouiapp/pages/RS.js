@@ -72,6 +72,10 @@ export default function RoundRobinScheduling() {
 
   return (
     <div>
+      <h1 className={styles.heading}>
+        {" "}
+        Multi-Level Feedback Queue (MLFQ) Scheduling
+      </h1>
       <div className={styles.box}>
         <div className={styles.container}>
           <form onSubmit={handleAddProcess}>
