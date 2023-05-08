@@ -121,8 +121,8 @@ export default function RoundRobinScheduling() {
       </div>
       {averageWaitingTime && averageTurnaroundTime && (
         <div className={styles.box}>
-          <p>Average Waiting Time: {averageWaitingTime.toFixed(2)}</p>
-          <p>Average Turnaround Time: {averageTurnaroundTime.toFixed(2)}</p>
+          <p>Average Waiting Time: {averageWaitingTime.toFixed(2)} ms</p>
+          <p>Average Turnaround Time: {averageTurnaroundTime.toFixed(2)} ms</p>
         </div>
       )}
       <div className={styles.box}>
@@ -131,8 +131,8 @@ export default function RoundRobinScheduling() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Arrival Time</th>
-              <th>Burst Time</th>
+              <th>Arrival Time (ms)</th>
+              <th>Burst Time(ms)</th>
               <th>Priority</th>
             </tr>
           </thead>

@@ -50,7 +50,7 @@ export default function PriorityScheduling() {
             {processes.map((process, i) => (
               <div key={i}>
                 <label className={styles.label} htmlFor={`arrival-time-${i}`}>
-                  Arrival time of process {i + 1}:
+                  Arrival time of process(ms) {i + 1}:
                 </label>
                 <input
                   className={styles.input}
@@ -63,7 +63,7 @@ export default function PriorityScheduling() {
                 />
                 <br />
                 <label className={styles.label} htmlFor={`burst-time-${i}`}>
-                  Burst time of process {i + 1}:
+                  Burst time of process(ms) {i + 1}:
                 </label>
                 <input
                   className={styles.input}
@@ -98,8 +98,8 @@ export default function PriorityScheduling() {
       </div>
       {averageWaitingTime !== null && averageTurnaroundTime !== null && (
         <div className={styles.box}>
-          <p>Average waiting time: {averageWaitingTime.toFixed(2)}</p>
-          <p>Average turnaround time: {averageTurnaroundTime.toFixed(2)}</p>
+          <p>Average waiting time: {averageWaitingTime.toFixed(2)} ms</p>
+          <p>Average turnaround time: {averageTurnaroundTime.toFixed(2)} ms </p>
         </div>
       )}
     </div>

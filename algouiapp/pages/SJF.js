@@ -48,7 +48,7 @@ export default function SJF() {
             {processes.map((process, i) => (
               <div key={i}>
                 <label className={styles.label} htmlFor={`arrival-time-${i}`}>
-                  Arrival time of process {i + 1}:
+                  Arrival time of process(ms) {i + 1}:
                 </label>
                 <input
                   className={styles.input}
@@ -61,7 +61,7 @@ export default function SJF() {
                 />
                 <br />
                 <label className={styles.label} htmlFor={`burst-time-${i}`}>
-                  Burst time of process {i + 1}:
+                  Burst time of process(ms) {i + 1}:
                 </label>
                 <input
                   className={styles.input}
@@ -82,14 +82,14 @@ export default function SJF() {
         </div>
       </div>
       <br></br>
-    
-        {averageWaitingTime !== null && averageTurnaroundTime !== null && (
-          <div className={styles.box}>
-            <p>Average waiting time: {averageWaitingTime.toFixed(2)}</p>
-            <p>Average turnaround time: {averageTurnaroundTime.toFixed(2)}</p>
-          </div>
-        )}
-</div>
+
+      {averageWaitingTime !== null && averageTurnaroundTime !== null && (
+        <div className={styles.box}>
+          <p>Average waiting time: {averageWaitingTime.toFixed(2)} ms</p>
+          <p>Average turnaround time: {averageTurnaroundTime.toFixed(2)} ms</p>
+        </div>
+      )}
+    </div>
   );
 }
 
