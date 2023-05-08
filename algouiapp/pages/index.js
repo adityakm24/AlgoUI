@@ -41,7 +41,7 @@ function SidePanelMenu({ onMenuSelect, selectedMenu }) {
           }`}
           onClick={() => onMenuSelect("RRS")}
         >
-          Round Robin Scheduling
+          Multi-Level Feedback Queue (MLFQ) Scheduling
         </li>
       </ul>
     </div>
