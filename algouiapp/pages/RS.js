@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "../styles/forms.module.css";
-
+import { Chart } from "react-google-charts";
 
 export default function RoundRobinScheduling() {
   const [processes, setProcesses] = useState([]);
@@ -70,10 +70,20 @@ export default function RoundRobinScheduling() {
     setAverageTurnaroundTime(totalTurnaroundTime / n);
   };
 
+  // Prepare data for Gantt chart
+  const ganttChartData = processes.map((process) => [
+    String(process.id), // Convert ID to string
+    `Process ${process.id}`,
+    new Date(0, 0, 0, 0, process.arrivalTime),
+    new Date(0, 0, 0, 0, process.arrivalTime + process.burstTime),
+    null,
+    0,
+    null,
+  ]);
+
   return (
     <div>
       <h1 className={styles.heading}>
-        {" "}
         Multi-Level Feedback Queue (MLFQ) Scheduling
       </h1>
       <div className={styles.box}>
@@ -123,12 +133,6 @@ export default function RoundRobinScheduling() {
           </form>
         </div>
       </div>
-      {averageWaitingTime && averageTurnaroundTime && (
-        <div className={styles.box}>
-          <p>Average Waiting Time: {averageWaitingTime.toFixed(2)} ms</p>
-          <p>Average Turnaround Time: {averageTurnaroundTime.toFixed(2)} ms</p>
-        </div>
-      )}
       <div className={styles.box}>
         <h2>Processes</h2>
         <table className={styles.table}>
@@ -136,7 +140,7 @@ export default function RoundRobinScheduling() {
             <tr>
               <th>ID</th>
               <th>Arrival Time (ms)</th>
-              <th>Burst Time(ms)</th>
+              <th>Burst Time (ms)</th>
               <th>Priority</th>
             </tr>
           </thead>
@@ -151,6 +155,35 @@ export default function RoundRobinScheduling() {
             ))}
           </tbody>
         </table>
+      </div>
+      {averageWaitingTime && averageTurnaroundTime && (
+        <div className={styles.box}>
+          <p>Average Waiting Time: {averageWaitingTime.toFixed(2)} ms</p>
+          <p>Average Turnaround Time: {averageTurnaroundTime.toFixed(2)} ms</p>
+        </div>
+      )}
+      <div className={styles.box}>
+        <Chart
+          width={"100%"}
+          height={"300px"}
+          chartType="Gantt"
+          loader={<div>Loading Chart</div>}
+          data={[
+            [
+              { type: "string", label: "Task ID" },
+              { type: "string", label: "Task Name" },
+              { type: "date", label: "Start Time" },
+              { type: "date", label: "End Time" },
+              { type: "number", label: "Duration" },
+              { type: "number", label: "Percent Complete" },
+              { type: "string", label: "Dependencies" },
+            ],
+            ...ganttChartData,
+          ]}
+          options={{
+            height: processes.length * 40 + 40,
+          }}
+        />
       </div>
     </div>
   );

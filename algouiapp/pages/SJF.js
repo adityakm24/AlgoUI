@@ -1,30 +1,72 @@
-import { useState } from 'react';
+import { useState, useEffect } from "react";
 import styles from "../styles/forms.module.css";
+import { Chart } from "react-google-charts";
 
 export default function SJF() {
+  const [processCount, setProcessCount] = useState(1);
   const [processes, setProcesses] = useState([]);
   const [averageWaitingTime, setAverageWaitingTime] = useState(null);
   const [averageTurnaroundTime, setAverageTurnaroundTime] = useState(null);
+  const [ganttChartData, setGanttChartData] = useState([]);
+
+  useEffect(() => {
+    if (processes.length > 0) {
+      const { averageWaitingTime, averageTurnaroundTime } =
+        sjfScheduling(processes);
+      setAverageWaitingTime(averageWaitingTime);
+      setAverageTurnaroundTime(averageTurnaroundTime);
+
+      const chartData = processes.map((process, index) => [
+        `P${index + 1}`,
+        null,
+        null,
+        process.burstTime,
+      ]);
+      setGanttChartData([["Task", "Start", "End", "Duration"], ...chartData]);
+    }
+  }, [processes]);
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
 
-    // parse user input for processes
-    const processCount = parseInt(formData.get('process-count'));
-    const processes = [];
+    const newProcesses = [];
     for (let i = 0; i < processCount; i++) {
-      processes.push({
-        arrivalTime: parseInt(formData.get(`arrival-time-${i}`)),
-        burstTime: parseInt(formData.get(`burst-time-${i}`))
+      newProcesses.push({
+        id: i + 1,
+        burstTime: parseInt(formData.get(`burst-time-${i}`)),
       });
     }
-    setProcesses(processes);
+    setProcesses(newProcesses);
+  }
 
-    // calculate average waiting time and average turnaround time using SJF algorithm
-    const { averageWaitingTime, averageTurnaroundTime } = sjfScheduling(processes);
-    setAverageWaitingTime(averageWaitingTime);
-    setAverageTurnaroundTime(averageTurnaroundTime);
+  function handleProcessCountChange(event) {
+    setProcessCount(parseInt(event.target.value));
+  }
+
+  function sjfScheduling(processes) {
+    const n = processes.length;
+    let waitingTime = 0;
+    let turnaroundTime = 0;
+
+    processes.sort((a, b) => a.burstTime - b.burstTime);
+
+    let currentTime = 0;
+    for (let i = 0; i < n; i++) {
+      processes[i].start = currentTime;
+      processes[i].end = currentTime + processes[i].burstTime;
+
+      let waitingTime_i = i === 0 ? 0 : currentTime;
+      waitingTime += waitingTime_i;
+      turnaroundTime += waitingTime_i + processes[i].burstTime;
+
+      currentTime += processes[i].burstTime;
+    }
+
+    const averageWaitingTime = waitingTime / n;
+    const averageTurnaroundTime = turnaroundTime / n;
+
+    return { averageWaitingTime, averageTurnaroundTime };
   }
 
   return (
@@ -44,25 +86,12 @@ export default function SJF() {
               min="1"
               max="10"
               required
+              onChange={handleProcessCountChange}
             />
-            <br />
-            {processes.map((process, i) => (
+            {Array.from({ length: processCount }, (_, i) => (
               <div key={i}>
-                <label className={styles.label} htmlFor={`arrival-time-${i}`}>
-                  Arrival time of process(ms) {i + 1}:
-                </label>
-                <input
-                  className={styles.input}
-                  type="number"
-                  name={`arrival-time-${i}`}
-                  id={`arrival-time-${i}`}
-                  min="0"
-                  max="100"
-                  required
-                />
-                <br />
                 <label className={styles.label} htmlFor={`burst-time-${i}`}>
-                  Burst time of process(ms) {i + 1}:
+                  Burst time{i + 1}:
                 </label>
                 <input
                   className={styles.input}
@@ -70,48 +99,32 @@ export default function SJF() {
                   name={`burst-time-${i}`}
                   id={`burst-time-${i}`}
                   min="1"
-                  max="100"
                   required
                 />
-                <br />
               </div>
             ))}
-            <button className={styles.button} type="submit">
-              Calculate
-            </button>
+            <input className={styles.button} type="submit" value="Submit" />
           </form>
         </div>
+        {averageWaitingTime !== null && (
+          <p>
+            Average Waiting Time: {averageWaitingTime}
+            <br />
+            Average Turnaround Time: {averageTurnaroundTime}
+          </p>
+        )}
       </div>
-      <br></br>
-
-      {averageWaitingTime !== null && averageTurnaroundTime !== null && (
-        <div className={styles.box}>
-          <p>Average waiting time: {averageWaitingTime.toFixed(2)} ms</p>
-          <p>Average turnaround time: {averageTurnaroundTime.toFixed(2)} ms</p>
-        </div>
+      {ganttChartData.length > 1 && (
+        <Chart
+          width={"600px"}
+          height={"400px"}
+          chartType="Timeline"
+          loader={<div>Loading Chart</div>}
+          data={ganttChartData}
+          options={{ showRowNumber: true }}
+          rootProps={{ "data-testid": "1" }}
+        />
       )}
     </div>
   );
-}
-
-function sjfScheduling(processes) {
-  const n = processes.length;
-  let waitingTime = 0;
-  let turnaroundTime = 0;
-
-  // sort processes by burst time in ascending order
-  processes.sort((a, b) => a.burstTime - b.burstTime);
-
-  // calculate waiting time and turnaround time for each process
-  for (let i = 0; i < n; i++) {
-    let waitingTime_i = i === 0 ? 0 : turnaroundTime - processes[i].arrivalTime;
-    waitingTime += waitingTime_i;
-    turnaroundTime += waitingTime_i + processes[i].burstTime;
-  }
-
-  // calculate average waiting time and average turnaround time
-  const averageWaitingTime = waitingTime / n;
-  const averageTurnaroundTime = turnaroundTime / n;
-
-  return { averageWaitingTime, averageTurnaroundTime };
 }

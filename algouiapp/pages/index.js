@@ -4,6 +4,7 @@ import HomePage from './HomePage'
 import SJF from './SJF'
 import PS from './PS'
 import RS from './RS'
+import Bnk from './Bnk'
 
 
 // Side panel menu component
@@ -43,6 +44,14 @@ function SidePanelMenu({ onMenuSelect, selectedMenu }) {
         >
           Multi-Level Feedback Queue (MLFQ) Scheduling
         </li>
+        <li
+          className={`${styles.menuItem} ${
+            selectedMenu === "Bnk" ? styles.active : ""
+          }`}
+          onClick={() => onMenuSelect("Bnk")}
+        >
+          Banker's Algorithm
+        </li>
       </ul>
     </div>
   );
@@ -56,6 +65,7 @@ function Content({ selectedMenu }) {
       {selectedMenu === "SJF" && <SJF />}
       {selectedMenu === "PS" && <PS />}
       {selectedMenu === "RRS" && <RS />}
+      {selectedMenu === "Bnk" && <Bnk />}
     </div>
   );
 }
